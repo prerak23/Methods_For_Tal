@@ -13,10 +13,10 @@ for data in output:
     if counter > 1 :
       if  "'0101010'" in data:
           epoch_value=epoch_value+1
-          counter=1
+        
       else:
           output_data.append(float(data))
-          epoch.append(epoch_value)
+          epoch.append(counter)
     counter+=1
 plt.title("loss as a function of epoch")
 plt.xlabel("epoch")
