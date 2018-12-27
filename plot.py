@@ -15,7 +15,7 @@ for data in output:
 plt.title("loss as a function of epoch")
 plt.xlabel("epoch")
 plt.ylabel("loss")
-plt.plot(output_data,[x  for x in range(len(output_data))])
+plt.plot([x  for x in range(len(output_data))],output_data)
 plt.savefig("loss_as_whole")
 print(output_data)
     
