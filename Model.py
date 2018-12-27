@@ -6,7 +6,6 @@ import prepare_data
 import create_target
 import re
 def preparedata(vocab,target_sentance_list):
-    print(target_sentance_list,vocab)
     idxs = [vocab[w] for w in target_sentance_list]
     return torch.tensor(idxs, dtype=torch.long)
 class LSTMClassification(nn.Module):
@@ -32,46 +31,65 @@ class LSTMClassification(nn.Module):
         print("Linear Layer output", class_score.size())
         class_scores=torch.transpose(class_score,0,1)
         print("Transpose Linear Layer output", class_scores.size())
-        maxfromclass_score=torch.max(class_scores,-1)[0]
-        print("Max Linear Layer output", maxfromclass_score.size())
-        maxfromclass_score=maxfromclass_score.unsqueeze(0)
-        print("Unsquezze Linear Layer output", maxfromclass_score.size())
-
+        
+        
         #inverse class_scores [no of classes * sentance size] and then take max from each row so [no of classes * 1]
 
 
-        return class_score
+        return class_scores
 
 
 vocab,list_of_Category,data_list=prepare_data.prepare_data()
-model=LSTMClassification(5,10,len(vocab), list_of_Category)
+model=LSTMClassification(20,5,len(vocab), list_of_Category)
 
-optimizer = optim.SGD(model.parameters(), lr=0.1)
+optimizer = optim.Adam(model.parameters(), lr=0.1)
 
 losses=[]
-for epoch in range(2):
+with open("plotdata.txt","w+", encoding="utf-8") as file:
+    for epoch in range(2):
+        start=0
+        end=500
+        for j in range (0,6):
+        
+            print(start,end)
+            for i in range(start,end):
+            
+                model.hidden=model.init_hidden()
 
-    for i in range(0,10):
-        model.zero_grad()
-        model.hidden=model.init_hidden()
-        remove_after_punc = re.sub("[-!,'.()`?;:]", "", data_list[i]["headline"])
-        print(data_list[i]["headline"],i)
+                remove_after_punc = re.sub("[-!,'.()`?;:]", "", data_list[i]["headline"]+" "+data_list[i]["short_description"])
+                list_of_word = remove_after_punc.split(" ")
+                if len(list_of_word) > 2:
+                    sentance_in=preparedata(vocab,list_of_word)
+                    class_scores=model(sentance_in)
+        
+            
+                    target=create_target.create_target(data_list[i]["category"],list_of_Category)
+        
+                    loss=F.cross_entropy(class_scores,target)
+                    losses.append(loss.item())
+                    loss.backward()
+                    optimizer.step()
+            start=start+500
+            end=end+500
+        losses.append("0101010")
+    file.write(str(losses))
+
+    print(len(data_list))
+    testing_loss=[]
+with open("plotd_test","w+", encoding="utf-8") as file2:
+    for i in range(15000,15200):
+        remove_after_punc = re.sub("[-!,'.()`?;:]","", data_list[i]["headline"])
         list_of_word = remove_after_punc.split(" ")
-        sentance_in=preparedata(vocab,list_of_word)
-        class_scores=model(sentance_in)
-        print("output from ll",class_scores.size())
-        class_scores=torch.transpose(class_scores,0,1)
-        target=create_target.create_target(data_list[i]["category"],list_of_Category)
-        print("target",target.size())
-        print(class_scores.size())
-
-        loss = F.cross_entropy(class_scores, target)
-        losses.append(loss)
-        loss.backward()
-        optimizer.step()
-
-print(losses)
-
-
-
+        if len(list_of_word) > 2:
+            sentance_in=preparedata(vocab,list_of_word)
+            class_scores=model(sentance_in)
+        
+            target=create_target.create_target(data_list[i]["category"],list_of_Category)
+            loss2=F.cross_entropy(class_scores,target)
+            print(class_scores,data_list[i]["category"])
+            print("testing")
+            testing_loss.append(loss2.item())
+    file2.write(str(testing_loss))
+    print(testing_loss)
+    print(list_of_Category)
 
