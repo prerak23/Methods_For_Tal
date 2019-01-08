@@ -26,7 +26,7 @@ class LSTMClassification(nn.Module):
         input_to_lstm=embeds.view(len(sentance),1,-1) #Resize to [len(Sentance),1,embeddingsize]
        
         lstm_out,self.hidden=self.lstm(input_to_lstm,self.hidden)
-        print(lstm_out.size())
+       
         class_score=self.hidden2tag(lstm_out.view(len(sentance),-1))
        
              
@@ -95,7 +95,6 @@ with open("plotd_test","w+", encoding="utf-8") as file2:
             target=create_target.create_target(data_list[i]["category"],list_of_Category,class_scores.size()[0])
             
             loss2=F.cross_entropy(class_scores,target)
-            class_scores=torch.transpose(class_scores,0,1)
             print(class_scores,data_list[i]["category"])
             print("testing")
             testing_loss.append((loss2.item(),data_list[i]["category"]))

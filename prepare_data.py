@@ -11,11 +11,12 @@ def prepare_data():
                         category_list[data['category']]=len(category_list)
                     regex="[!,'.()`?;:]"
                     remove_after_punc=re.sub("[-!,'.()`?;:]","",data["headline"]+" "+data["short_description"])
-                    list_of_word=remove_after_punc.split(" ")
+                    remove_after_punc=remove_after_punc.lower()
+                    list_of_word=list(remove_after_punc)
                 
                     for headlines in list_of_word:
                         if headlines not in vocab:
                             vocab[headlines]=len(vocab)
-
+                print(len(data_list))
                 return vocab,category_list,data_list
-prepare_data()
+
