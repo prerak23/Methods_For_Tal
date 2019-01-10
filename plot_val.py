@@ -19,7 +19,7 @@ plt.title("loss as a function of epoch")
 plt.xlabel("epoch")
 plt.ylabel("loss")
 plt.plot(accuracy_data)
-plt.savefig("loss_for_accus")
+plt.savefig("loss_for_accuss")
 print(output_data)
 
 
