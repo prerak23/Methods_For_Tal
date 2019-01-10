@@ -19,7 +19,7 @@ plt.title("loss as a function of epoch")
 plt.xlabel("epoch")
 plt.ylabel("Accuracy Percentage")
 plt.plot(accuracy_data) #Print The Data To The Plot
-plt.savefig("loss_for_accuss")#Save The Data As A PNG File
+plt.savefig("acu_For_test")#Save The Data As A PNG File
 print(output_data)
 
 
