@@ -28,7 +28,7 @@ def validation(models):
         global list_imp
         dict_of_accu={}
         counter2=0
-        for i in range(25000,30000):
+        for i in range(114000,117000):
             remove_after_punc = re.sub("[-!,'.()`?;:]","", data_list[i]["headline"])
             remove_after_punc=remove_after_punc.lower()
             list_of_word = list(remove_after_punc)
@@ -51,7 +51,7 @@ def validation(models):
                     dict_of_accu[data_list[i]["category"]]=1
                 counter2+=1
         list_imp.append((str(totalloss/counter2),str((accu/counter2)*100)))
-        file2.write(str(list_imp)+str(dict_of_accu)+str(accu))
+        file2.write(str(list_imp))
        
         print(list_of_Category)
 
@@ -113,11 +113,11 @@ losses=[]
 with open("plotdatas.txt","w+", encoding="utf-8") as file:
     losses_to_print=[]
     
-    for j in range(2):
+    for j in range(5):
         finalloss=0
         counter=0
         current_count=0
-        for i in range(40000,80000):
+        for i in range(40000,90000):
             remove_after_punc = re.sub("[-!,'.()`?;:]", "", data_list[i]["headline"])
             remove_after_punc=remove_after_punc.lower()
             list_of_word = list(remove_after_punc)
