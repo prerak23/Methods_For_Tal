@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import ast
 import re
-file = open("plot_valid_data")#Log data of Validation On The Model By Using The Test Set
+file = open("plotdata_test")#Log data of Validation On The Model By Using The Test Set
 string = file.read()
 string = re.sub("/[\[\]']","",string)
 train_data=eval(string) #Convert String To A List Of Tuples
