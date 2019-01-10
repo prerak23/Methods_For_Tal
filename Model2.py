@@ -28,7 +28,7 @@ def validation(models):
         global list_imp
         dict_of_accu={}
         counter2=0
-        for i in range(500,4000):
+        for i in range(25000,30000):
             remove_after_punc = re.sub("[-!,'.()`?;:]","", data_list[i]["headline"])
             remove_after_punc=remove_after_punc.lower()
             list_of_word = list(remove_after_punc)
