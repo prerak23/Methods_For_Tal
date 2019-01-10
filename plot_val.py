@@ -18,8 +18,8 @@ for data in train_data:
 plt.title("loss as a function of epoch")
 plt.xlabel("epoch")
 plt.ylabel("loss")
-plt.plot(output_data,epoch)
-plt.plot(accuracy_data,epoch)
+plt.plot(output_data)
+plt.plot(accuracy_data)
 plt.savefig("loss_for_accu")
 print(output_data)
 
