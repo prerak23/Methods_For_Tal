@@ -8,7 +8,7 @@ def prepare_data():
                 vocab={}
                 for data in data_list:
                     if data['category'] not in category_list:
-                        category_list[data['category']]=len(category_list)
+                        category_list[data['category']]=len(category_list)+1
                     regex="[!,'.()`?;:]"
                     remove_after_punc=re.sub("[-!,'.()`?;:]","",data["headline"]+" "+data["short_description"])
                     remove_after_punc=remove_after_punc.lower()

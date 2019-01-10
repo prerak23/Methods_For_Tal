@@ -4,26 +4,24 @@ import re
 file = open("plotdata.txt")
 string = file.read()
 string = re.sub("/[\[\]']","",string)
-output=string.split(",")
+train_data=eval(string)
 counter=0
 output_data=[]
+accuracy_data=[]
 epoch=[]
 epoch_value=1
-for data in output:
-    if counter > 1 :
-      if  "'0101010'" in data:
-          epoch_value=epoch_value+1
-        
-      else:
-          output_data.append(float(data))
-          epoch.append(counter)
+for data in train_data:
+    output_data.append(float(data[0]))
+    accuracy_data.append(float(data[1]))
+    epoch.append(counter)
     counter+=1
 plt.title("loss as a function of epoch")
 plt.xlabel("epoch")
 plt.ylabel("loss")
-plt.plot(output_data)
-plt.savefig("loss_as_whole")
+plt.plot(output_data,epoch)
+plt.plot(accuracy_data,epoch)
+plt.savefig("loss_for_train")
 print(output_data)
-    
+
 
 
