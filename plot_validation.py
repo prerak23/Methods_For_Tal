@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import ast
 import re
-file = open("plotd_test")
+file = open("plot_valid_data")#Log data of Validation On The Model By Using The Test Set
 string = file.read()
 string = re.sub("/[\[\]']","",string)
-train_data=eval(string)
+train_data=eval(string) #Convert String To A List Of Tuples
 counter=0
 output_data=[]
 accuracy_data=[]
@@ -17,9 +17,9 @@ for data in train_data:
     counter+=1
 plt.title("loss as a function of epoch")
 plt.xlabel("epoch")
-plt.ylabel("loss")
-plt.plot(accuracy_data)
-plt.savefig("loss_for_accuss")
+plt.ylabel("Accuracy Percentage")
+plt.plot(accuracy_data) #Print The Data To The Plot
+plt.savefig("loss_for_accuss")#Save The Data As A PNG File
 print(output_data)
 
 
