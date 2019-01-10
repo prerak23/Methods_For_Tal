@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import ast
 import re
-file = open("plotdata.txt") #Open Log File Of Training Data
+file = open("plotdata_train.txt") #Open Log File Of Training Data
 string = file.read()
 string = re.sub("/[\[\]']","",string)
 train_data=eval(string) #Convert String into list
